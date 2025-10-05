@@ -28,3 +28,11 @@ function maskify(cc) {
     for (let i = 0; i < cc.length - 4; i++) cc[i] = '#';
     return cc.join("");
   }
+
+/*
+  Key take away :
+
+  - Utilisation de boucle for on-line, 
+  - Utilisation de la méthode split('') pour convertir le string en tableau,
+  - Utilisation de join('') pour reconvertir le tableau en string
+*/
