@@ -13,7 +13,11 @@
     <input type="text" id="task-input" placeholder="your task">
     <button onclick=addfunction()>Add</button>
 
-    <div id="task-container"></div>
+    <div id="task-container">
+        <h2> Mes tâches : </h2>
+    </div>
+
+    <button onclick=deleteFunction()>Clear all</button>
 
     <script>
         /*
@@ -29,14 +33,39 @@
         */
 
         let taskContainer = document.getElementById('task-container');
-        let value = document.getElementById('task-input').value;
+        let element = document.getElementById('task-input');
+        let arrayList = [];
+
+        let taskfromStorage = localStorage.getItem("tasks");
+        if (taskfromStorage) {
+            arrayList = JSON.parse(taskfromStorage);
+            arrayList.forEach((tasks) => {
+                let pElement = document.createElement("p");
+                pElement.innerText = tasks;
+                taskContainer.appendChild(pElement);
+            }) 
+        }
         
         function addfunction() {
-            if (value == null) {
+            if (element.value == '') {
                 alert("Veuillez saisir une tache !");
             } else {
-                alert(value);
+                arrayList.push(element.value);
+                localStorage.setItem("tasks", JSON.stringify(arrayList));
+                let textFromStorage = localStorage.getItem("tasks");
+                let tasks = JSON.parse(textFromStorage); 
+
+                let pElement = document.createElement("p");
+                pElement.innerText = element.value;
+                taskContainer.appendChild(pElement);
+                element.value = '';
             }
+        }
+
+        function deleteFunction() {
+            localStorage.removeItem("tasks");
+            arrayList = [];
+            taskContainer.innerHTML = "<h2> Mes tâches </h2>";
         }
     </script>
 </body>
